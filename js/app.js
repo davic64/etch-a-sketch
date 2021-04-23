@@ -2,14 +2,11 @@ const grid = document.querySelector("#grid");
 
 const gridUI = (sq) => {
     grid.style.gridTemplateColumns = `repeat(${sq}, 1fr)`;
-    for (let i = 0; i < sq; i++) {
-        for (let j = 0; j < sq; j++) {
-            const div = document.createElement("div");
-            div.classList.add("square");
-            div.style.width = "100%";
-            div.style.height = "100%";
-            grid.appendChild(div);
-        }
+    grid.style.gridTemplateRows = `repeat(${sq}, 1fr)`;
+    for (let i = 0; i < sq * sq; i++) {
+        const div = document.createElement("div");
+        div.classList.add("square");
+        grid.appendChild(div);
     }
 
     const squares = document.querySelectorAll(".square");
@@ -22,7 +19,13 @@ const gridUI = (sq) => {
 
 const setGrid = () => {
     let sq = Number(prompt("Grid"));
-    gridUI(sq);
+    if(sq < 64) {
+        const squares = document.querySelectorAll(".square");
+        squares.forEach((square) => square.remove());
+        gridUI(sq);
+    } else {
+        alert('Max 64')
+    }
 };
 
 gridUI(10);
