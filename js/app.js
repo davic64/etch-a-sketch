@@ -1,7 +1,7 @@
 const grid = document.querySelector("#grid");
 let squares = [];
 
-const drawGrid = (lenghtGrid = 10) => {
+const drawGrid = (lenghtGrid = 15) => {
     grid.style.gridTemplateColumns = `repeat(${lenghtGrid}, 1fr)`;
     grid.style.gridTemplateRows = `repeat(${lenghtGrid}, 1fr)`;
     for (let i = 0; i < lenghtGrid * lenghtGrid; i++) {
