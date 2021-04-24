@@ -1,31 +1,46 @@
 const grid = document.querySelector("#grid");
+let squares = [];
 
-const gridUI = (sq) => {
-    grid.style.gridTemplateColumns = `repeat(${sq}, 1fr)`;
-    grid.style.gridTemplateRows = `repeat(${sq}, 1fr)`;
-    for (let i = 0; i < sq * sq; i++) {
+const drawGrid = (lenghtGrid = 10) => {
+    grid.style.gridTemplateColumns = `repeat(${lenghtGrid}, 1fr)`;
+    grid.style.gridTemplateRows = `repeat(${lenghtGrid}, 1fr)`;
+    for (let i = 0; i < lenghtGrid * lenghtGrid; i++) {
         const div = document.createElement("div");
         div.classList.add("square");
         grid.appendChild(div);
     }
+    paintSquare();
+};
 
-    const squares = document.querySelectorAll(".square");
+const randomRGB = () => {
+    const rgbColor = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(
+        Math.random() * 255
+    )}, ${Math.floor(Math.random() * 255)})`;
+    return rgbColor;
+};
+
+const paintSquare = () => {
+    squares = document.querySelectorAll(".square");
     squares.forEach((square) => {
         square.addEventListener("mouseover", (e) => {
-            e.target.style.backgroundColor = "black";
+            e.target.style.backgroundColor = randomRGB();
         });
     });
 };
 
 const setGrid = () => {
-    let sq = Number(prompt("Grid"));
-    if(sq < 64) {
-        const squares = document.querySelectorAll(".square");
-        squares.forEach((square) => square.remove());
-        gridUI(sq);
+    let lenghtGrid = Number(prompt("Set the lenght grid"));
+    if (lenghtGrid < 2 || lenghtGrid > 64) {
+        alert("Ups! The grid number must be between 2 and 64");
+        setGrid();
     } else {
-        alert('Max 64')
+        squares.forEach((square) => square.remove());
+        drawGrid(lenghtGrid);
     }
 };
 
-gridUI(10);
+const main = () => {
+    drawGrid();
+};
+
+main();
